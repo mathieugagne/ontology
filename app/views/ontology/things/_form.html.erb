@@ -1,0 +1,39 @@
+<%= form_for(@thing) do |f| %>
+  <% if @thing.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@thing.errors.count, "error") %> prohibited this thing from being saved:</h2>
+
+      <ul>
+      <% @thing.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+<table>
+	<tr>
+		<td> <%= f.label :name %> </td>
+		<td> <%= f.text_field :name %> </td>
+	</tr>
+	<tr>
+		<td> <%= f.label :type %> </td>
+		<td> <%= f.select :type_id, options_for_select(@types.map{|t| [t.name, t.id]}, @thing.type_id) %> </td>
+	</tr>
+</table>
+<% unless @thing.new_record? %>
+<hr />
+<h5>Properties</h5>
+<div>
+	<ul>
+		<%= f.fields_for :properties do |p| %>
+			<%= render "ontology/properties/property_fields", :f => p %>
+		<% end %>
+	</ul>
+</div>
+<% end %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

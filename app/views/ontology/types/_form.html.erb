@@ -1,0 +1,50 @@
+<%= form_for(@type) do |f| %>
+  <% if @type.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@type.errors.count, "error") %> prohibited this type from being saved:</h2>
+
+      <ul>
+      <% @type.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+  <%= f.label :name %>: <%= f.text_field :name %>
+
+<div class="field">
+	<%= f.label :ancestors, 'Ancestors' %>
+	<ul class="checkbox-list">
+		<% @types.each do |type| -%>
+		<li>
+			<%= check_box_tag "type[ancestor_ids][]", type.id, @type.ancestor_ids.include?(type.id) %> <%= type.name -%>
+		</li>
+		<% end -%>
+	</ul>
+</div>
+<div class="field">
+	<%= f.label :descendants, 'Descendants' %>
+	<ul class="checkbox-list">
+		<% @types.each do |type| -%>
+		<li>
+			<%= check_box_tag "type[descendant_ids][]", type.id, @type.descendant_ids.include?(type.id) %> <%= type.name -%>
+		</li>
+		<% end -%>
+	</ul>
+</div>
+<div class="field">
+	<%= f.label :predicates, "Predicates" %>
+	<ul class="checkbox-list">
+		<% @predicates.each do |predicate| -%>
+		<li>
+			<%= check_box_tag "type[predicate_ids][]", predicate.id, @type.predicate_ids.include?(predicate.id) %> <%= predicate.name -%>
+		</li>
+		<% end -%>
+	</ul>
+</div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

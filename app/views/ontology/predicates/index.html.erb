@@ -1,0 +1,23 @@
+<h1>Listing predicates</h1>
+
+<table>
+  <tr>
+  	<th>Name</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @predicates.each do |predicate| %>
+  <tr>
+  	<td><%= predicate.name %></td>
+    <td><%= link_to 'Show', predicate %></td>
+    <td><%= link_to 'Edit', edit_predicate_path(predicate) %></td>
+    <td><%= button_to 'Destroy', predicate, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Predicate', new_predicate_path %>

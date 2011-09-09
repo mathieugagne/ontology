@@ -1,0 +1,27 @@
+<%= form_for(@predicate) do |f| %>
+<% if @predicate.errors.any? %>
+<div id="error_explanation">
+	<h2><%= pluralize(@predicate.errors.count, "error") %> prohibited this predicate from being saved:</h2>
+	<ul>
+		<% @predicate.errors.full_messages.each do |msg| %>
+		<li>
+			<%= msg %>
+		</li>
+		<% end %>
+	</ul>
+</div>
+<% end %>
+<table>
+	<tr>
+		<td> <%= f.label :name %> </td>
+		<td> <%= f.text_field :name %> </td>
+	</tr>
+	<tr>
+		<td> <%= f.label :type %> </td>
+		<td> <%= f.select :type, options_for_select(Ontology::Predicate.types_for_select) %> </td>
+	</tr>
+</table>
+<div class="actions">
+	<%= f.submit %>
+</div>
+<% end %> 
