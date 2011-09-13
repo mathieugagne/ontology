@@ -1,3 +1,7 @@
 = Ontology
 
 This project rocks and uses MIT-LICENSE.
+
+== Installation
+
+		rake ontology:install:migrations
