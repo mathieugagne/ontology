@@ -18,6 +18,10 @@ class CreateOntology < ActiveRecord::Migration
     end
     add_index :ontology_types, :things_count
     add_index :ontology_types, :predicates_count
+    add_index :ontology_types, :members_count
+    add_index :ontology_types, :groups_count
+    add_index :ontology_types, :ancestors_count
+    add_index :ontology_types, :descendants_count
     
     create_table :ontology_predicates, :force => true do |t|
       t.string  :name
@@ -38,6 +42,11 @@ class CreateOntology < ActiveRecord::Migration
       t.integer :ancestor_id
       t.integer :descendant_id
     end
+        
+    create_table :ontology_belongings, :id => false, :force => true do |t|
+      t.integer :member_id
+      t.integer :group_id
+    end
     
     create_table :ontology_predicates_types, :id => false, :force => true do |t|
       t.integer :predicate_id
@@ -56,6 +65,7 @@ class CreateOntology < ActiveRecord::Migration
     drop_table :ontology_properties
     drop_table :ontology_predicates
     drop_table :ontology_relations
+    drop_table :ontology_belongings
   end
   
 end
