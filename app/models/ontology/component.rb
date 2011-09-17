@@ -1,10 +1,10 @@
 module Ontology
-  class Type < ActiveRecord::Base
+  class Component < ActiveRecord::Base
 
-    EVERYTHING_TYPE_ID= 1
+    EVERYTHING_COMPONENT_ID= 1
 
     has_many :things
-    has_and_belongs_to_many :predicates, :join_table => "ontology_predicates_types"
+    has_and_belongs_to_many :predicates, :join_table => "ontology_predicates_components"
 
     has_many :relations, :foreign_key => :ancestor_id
     has_many :reverse_relations, :class_name => 'Relation', :foreign_key => :descendant_id
@@ -33,7 +33,7 @@ module Ontology
     before_save :adjust_counters
     class << self
       def everything
-        find(EVERYTHING_TYPE_ID)
+        find(EVERYTHING_COMPONENT_ID)
       end
 
     end

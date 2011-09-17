@@ -1,5 +1,10 @@
 Ontology::Engine.routes.draw do
-  resources :types
+	
+  get "ajax/types"
+
+  get "ajax/predicates"
+
+  resources :components
   resources :things
   resources :predicates
   resources :properties

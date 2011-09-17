@@ -1,4 +1,4 @@
-<h1>Listing types</h1>
+<h1>Listing components</h1>
 
 <table>
   <tr>
@@ -8,16 +8,16 @@
     <th></th>
   </tr>
 
-<% @types.each do |type| %>
+<% @components.each do |component| %>
   <tr>
-  	<td><%= type.name %></td>
-    <td><%= link_to 'Show', type %></td>
-    <td><%= link_to 'Edit', edit_type_path(type) %></td>
-    <td><%= link_to 'Destroy', type, confirm: 'Are you sure?', method: :delete %></td>
+  	<td><%= component.name %></td>
+    <td><%= link_to 'Show', component %></td>
+    <td><%= link_to 'Edit', edit_component_path(component) %></td>
+    <td><%= link_to 'Destroy', component, confirm: 'Are you sure?', method: :delete %></td>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New Type', new_type_path %>
+<%= link_to 'New Component', new_component_path %>

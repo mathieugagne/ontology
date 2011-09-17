@@ -1,70 +1,82 @@
 module Ontology
-  class TypesController < ApplicationController
-    
-    before_filter :get_dependencies
-  
-    def index
-      @types = Type.all
-    end
+	class ComponentsController < ApplicationController
 
-    def show
-      @type = Type.find(params[:id])
-      render :edit
-    end
+		def index
+			@components = Component.all
+		end
 
-    def new
-      @type = Type.new(params[:type])
-    end
+		def show
+			@component = Component.find(params[:id])
+			render :edit
+		end
 
-    def edit
-      @type = Type.find(params[:id])
-    end
+		def new
+			@component = Component.new(params[:component])
+		end
 
-    def create
-      @type = Type.new(params[:type])
+		def edit
+			@component = Component.find(params[:id])
+			rescue => ex
+				respond_to do |format|
+					format.html { redirect_to components_path, :alert => ex.message }
+					format.xml  { head :not_found }
+				end
+		end
 
-      respond_to do |format|
-        if @type.save
-          format.html { redirect_to(@type, :notice => t(:created, :name => @type.name)) }
-          format.xml  { render :xml => @type, :status => :created, :location => @type }
-        else
-          format.html { render :action => "new" }
-          format.xml  { render :xml => @type.errors, :status => :unprocessable_entity }
-        end
-      end
-    end
+		def create
+			@component = Component.new(params[:component])
 
-    def update
-      @type = Type.find(params[:id])
+			respond_to do |format|
+				if @component.save
+					format.html { redirect_to edit_component_path(@component), :notice => t(:successfully_created) }
+					format.xml  { render :xml => @component, :status => :created, :location => @component }
+				else
+					format.html { render :action => "new" }
+					format.xml  { render :xml => @component.errors, :status => :unprocessable_entity }
+				end
+			end
+		end
 
-      respond_to do |format|
-        if @type.update_attributes(params[:type])
-          format.html { redirect_to(@type, :notice => t(:updated, :name => @type.name)) }
-          format.xml  { head :ok }
-        else
-          format.html { render :action => "edit" }
-          format.xml  { render :xml => @type.errors, :status => :unprocessable_entity }
-        end
-      end
-    end
+		def update
+			begin
+				@component = Component.find(params[:id])
 
-    def destroy
-      @type = Type.find(params[:id])
-      name = @type.name
-      @type.destroy
+				respond_to do |format|
+					if @component.update_attributes(params[:component])
+						format.html { redirect_to edit_component_path(@component), :notice => t(:successfully_updated) }
+						format.xml  { head :ok }
+					else
+						format.html { render :action => "edit" }
+						format.xml  { render :xml => @component.errors, :status => :unprocessable_entity }
+					end
+				end
 
-      respond_to do |format|
-        format.html { redirect_to(types_url, :notice => t(:deleted, :name => name)) }
-        format.xml  { head :ok }
-      end
-    end
-    
-    private
-    
-    def get_dependencies
-      @types = Type.all
-      @predicates = Predicate.all      
-    end
+			rescue => ex
+				respond_to do |format|
+					format.html { redirect_to components_path, :alert => ex.message }
+					format.xml  { head :unprocessable_entity }
+				end
 
-  end
+			end
+		end
+
+		def destroy
+			begin
+				@component = Component.find(params[:id])
+				@component.destroy
+
+				respond_to do |format|
+					format.html { redirect_to(components_url, :notice => t(:successfully_deleted)) }
+					format.xml  { head :ok }
+				end
+
+			rescue => ex
+				respond_to do |format|
+					format.html { redirect_to components_path, :alert => ex.message }
+					format.xml  { head :unprocessable_entity }
+				end
+			end
+		end
+
+	end
 end

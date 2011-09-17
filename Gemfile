@@ -10,5 +10,13 @@ gemspec
 # Git. Remember to move these dependencies to your gemspec before releasing
 # your gem to rubygems.org.
 
-# To use debugger
-gem 'ruby-debug19', :require => 'ruby-debug'
+group :development, :test do
+	gem 'ruby-debug19', :require => 'ruby-debug'
+	gem 'rspec-rails'
+	gem 'capybara', :git => 'git://github.com/jnicklas/capybara.git'
+	gem 'guard-rspec'
+	gem 'factory_girl_rails'
+	gem 'launchy'
+	gem 'rb-inotify'
+	gem 'libnotify'
+end
